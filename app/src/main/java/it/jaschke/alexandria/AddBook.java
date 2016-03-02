@@ -29,6 +29,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     private static final String SCAN_FORMAT = "scanFormat";
     private static final String SCAN_CONTENTS = "scanContents";
     private final int LOADER_ID = 1;
+    private final int BARCODE_SCANNER_REQUEST_CODE = 174;
     private final String EAN_CONTENT = "eanContent";
     private EditText ean;
     private View rootView;
@@ -51,11 +52,12 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
+        if (requestCode == BARCODE_SCANNER_REQUEST_CODE) {
+            //only for the ZXing app
             if (resultCode == activity.RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 String format = data.getStringExtra("SCAN_RESULT_FORMAT");
-                Log.d("onActivityResult",format+" : "+contents);
+                Log.d("onActivityResult", format + " : " + contents);
                 //TODO Handle successful scan
             } else if (resultCode == activity.RESULT_CANCELED) {
                 // TODO Handle cancel
@@ -68,6 +70,9 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
         rootView = inflater.inflate(R.layout.fragment_add_book, container, false);
         ean = (EditText) rootView.findViewById(R.id.ean);
+        if (savedInstanceState!=null){
+            ean.setText(savedInstanceState.getString(EAN_CONTENT));
+        }
 
         ean.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,13 +121,12 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 //                Toast toast = Toast.makeText(context, text, duration);
 //                toast.show();
 
-                try{
+                try {
                     Intent intent = new Intent("com.google.zxing.client.android.SCAN");
                     intent.setPackage("com.google.zxing.client.android");
                     intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
-                }
-                catch (Exception e){
+                    startActivityForResult(intent, BARCODE_SCANNER_REQUEST_CODE);
+                } catch (Exception e) {
 //                    not install the zxing
 //                    go to the market download
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + "com.google.zxing.client.android")));
