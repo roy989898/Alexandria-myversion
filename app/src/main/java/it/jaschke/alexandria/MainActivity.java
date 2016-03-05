@@ -80,9 +80,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         }
 
-        fragmentManager.beginTransaction()
+        /*fragmentManager.beginTransaction()
                 .replace(R.id.container, nextFragment)
                 .addToBackStack((String) title)
+                .commit();*/
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, nextFragment)
                 .commit();
     }
 
