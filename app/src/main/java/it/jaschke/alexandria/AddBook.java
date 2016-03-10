@@ -66,7 +66,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 ean.setText(contents);
             } else if (resultCode == activity.RESULT_CANCELED) {
                 //  Handle cancel
-                Toast.makeText(activity,"Scan cancel",Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity,getString(R.string.scan_cancel),Toast.LENGTH_SHORT).show();
             }
         }
     }

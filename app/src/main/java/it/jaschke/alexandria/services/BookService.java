@@ -58,11 +58,13 @@ public class BookService extends IntentService {
             }
         }
     }
-private void sendBrodcasttoStarttheCursorLoader(){
-    Intent brodcastIntent=new Intent();
-    brodcastIntent.setAction(AddBook.BRODCAST_ACTION);
-    sendBroadcast(brodcastIntent);
-}
+
+    private void sendBrodcasttoStarttheCursorLoader() {
+        Intent brodcastIntent = new Intent();
+        brodcastIntent.setAction(AddBook.BRODCAST_ACTION);
+        sendBroadcast(brodcastIntent);
+    }
+
     /**
      * Handle action Foo in the provided background thread with the provided
      * parameters.
@@ -112,12 +114,12 @@ private void sendBrodcasttoStarttheCursorLoader(){
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             boolean isConnected = activeNetwork != null &&
                     activeNetwork.isConnectedOrConnecting();
-            if (!isConnected){
+            if (!isConnected) {
                 //Alexandria does not crash while searching for a book without an internet connection
-                Toast.makeText(getApplicationContext(), "No Intennet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
                 return;
             }
-                final String FORECAST_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
+            final String FORECAST_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
             final String QUERY_PARAM = "q";
 
             final String ISBN_PARAM = "isbn:" + ean;
