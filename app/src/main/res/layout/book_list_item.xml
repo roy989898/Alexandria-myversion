@@ -3,7 +3,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
                 android:padding="6dip" >
-
+    <!--//Extra problem 2!!!!!!!!!!!!!-->
+    <!--//when cant show the picture,the layout has some problem-->
+    <!--//because of the relative layout-->
     <ImageView
         android:id="@+id/fullBookCover"
         android:layout_width="wrap_content"
