@@ -45,7 +45,7 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("BookDetail","onCreateView");
+        Log.d("BookDetail", "onCreateView");
 
         Bundle arguments = getArguments();
         if (arguments != null) {
@@ -71,7 +71,7 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        Log.d("BookDetail","onCreateOptionsMenu");
+        Log.d("BookDetail", "onCreateOptionsMenu");
         inflater.inflate(R.menu.book_detail, menu);
 
         MenuItem menuItem = menu.findItem(R.id.action_share);
@@ -124,10 +124,11 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
             authorsArr = new String[0];
         } else {
             authorsArr = authors.split(",");
+            ((TextView) rootView.findViewById(R.id.authors)).setLines(authorsArr.length);
+            ((TextView) rootView.findViewById(R.id.authors)).setText(authors.replace(",", "\n"));
         }
 
-        ((TextView) rootView.findViewById(R.id.authors)).setLines(authorsArr.length);
-        ((TextView) rootView.findViewById(R.id.authors)).setText(authors.replace(",", "\n"));
+
         String imgUrl = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.IMAGE_URL));
         if (Patterns.WEB_URL.matcher(imgUrl).matches()) {
             new DownloadImage((ImageView) rootView.findViewById(R.id.fullBookCover)).execute(imgUrl);
